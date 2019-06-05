@@ -1,0 +1,56 @@
+.cart-lable {
+  position: relative;
+  cursor: pointer;
+  img {
+    &:hover {
+      opacity: .8;
+    }
+  }
+  sup {
+    background: red;
+    width: 20px;
+    height: 20px;
+    display: block;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    position: absolute;
+    right: -7px;
+    top: 0;
+  }
+}
+.lightblue.navbar {
+  padding-right: 0;
+  padding-left: 0;
+  padding-bottom: 0;
+  background-color: azure;
+}
+.cart-holder.navbar-toggler {
+  margin-right: 1rem;
+  border: none;
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}
+.base {
+  .btn-home {
+    margin-left: .8rem;
+    img {
+      &:hover {
+        opacity: .8;
+      }
+    }
+  }
+  .categories-nav {
+    a {
+      &.nav-link{
+        color: #17a2b8;
+        &:hover {
+          opacity: .8;
+        }
+      }
+    }
+  }
+}

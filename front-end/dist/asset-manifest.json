@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b4cfd4f6.chunk.css",
+    "main.js": "/static/js/main.2b8dc107.chunk.js",
+    "main.js.map": "/static/js/main.2b8dc107.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+    "static/css/2.22a7d4ef.chunk.css": "/static/css/2.22a7d4ef.chunk.css",
+    "static/js/2.4f26d21f.chunk.js": "/static/js/2.4f26d21f.chunk.js",
+    "static/js/2.4f26d21f.chunk.js.map": "/static/js/2.4f26d21f.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.f7bd50d284fe4eb14352c49a75b5c881.js": "/precache-manifest.f7bd50d284fe4eb14352c49a75b5c881.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.22a7d4ef.chunk.css.map": "/static/css/2.22a7d4ef.chunk.css.map",
+    "static/css/main.b4cfd4f6.chunk.css.map": "/static/css/main.b4cfd4f6.chunk.css.map",
+    "static/media/cart-open.svg": "/static/media/cart-open.7b74607f.svg",
+    "static/media/cart.svg": "/static/media/cart.ecc4b73f.svg",
+    "static/media/home.svg": "/static/media/home.0eaf1901.svg"
+  }
+}
