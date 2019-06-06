@@ -97,6 +97,7 @@ class Home extends React.Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state, 'sssssss')
   return {
     filterBooks: state.filterReducer.filterBooks,
     books: state.homeReducer.books

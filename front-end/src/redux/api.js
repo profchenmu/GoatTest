@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:9000'
+const baseUrl = 'http://localhost:5000'
 export const COMMON = {
-	"GET_ITEMS" : `${baseUrl}/api/books`,
+	"GET_ITEMS" : `${baseUrl}/sneakers`,
 }
