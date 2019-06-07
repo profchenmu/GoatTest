@@ -3,14 +3,16 @@ import homeReducer from './homeReducer';
 import detailsReducer from './detailsReducer';
 import categoriesReducer from './categoriesReducer';
 import filterReducer from './filterReducer';
-import cartReducer from './cartReducer'
+import cartReducer from './cartReducer';
+import sortReducer from './sortReducer';
 
 const rootReducer = combineReducers({
 	homeReducer,
 	detailsReducer,
 	categoriesReducer,
 	filterReducer,
-	cartReducer
+	cartReducer,
+	sortReducer
 });
 
 export default rootReducer

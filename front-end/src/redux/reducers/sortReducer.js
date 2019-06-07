@@ -1,15 +1,13 @@
 let initialState = {
-  size: [],
-  category: null,
-  condition: null,
+  sort: `_sort=release_date_unix&_order=desc`
 };
 export default (state = initialState, action) => {
   switch (action.type){
-    case `filter`:
+    case `sort`:
       // let size = state.size;
       // size.push(action.payload)
       // console.log(size, 'eeeeee')
-      return Object.assign({}, state, action.payload);
+      return Object.assign({}, state, {sort: action.payload});
     default:
       return state;
   }

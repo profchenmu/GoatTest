@@ -27,7 +27,7 @@ class App extends React.Component {
     // fetch books from server
     // this.props.actions.getBooks();
     // get cart data from localStorage
-    this.props.actions.getCartFromStorage();
+    // this.props.actions.getCartFromStorage();
   }
   barSelect(e) {
     // change icon color

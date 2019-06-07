@@ -42,7 +42,7 @@ class Goat extends React.Component {
   }
 
   addMore() {
-    this.props.actions.addMore(this.state.page + 1, 20);
+    this.props.actions.addMore(this.state.page + 1, 20, this.props.filter.size);
   }
 
   render() {
@@ -105,7 +105,8 @@ class Goat extends React.Component {
 function mapStateToProps(state) {
   console.log(state)
   return {
-    sneakers: state.homeReducer.sneakers
+    sneakers: state.homeReducer.sneakers,
+    filter: state.filterReducer
   }
 }
 function mapDispatchToProps(dispatch) {

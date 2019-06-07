@@ -5,24 +5,9 @@ export const getBooks = (page, limit) => {
   return (dispatch) => {
     console.log(page, limit)
     axios.get(`${COMMON.GET_ITEMS}?_page=${page}&_limit=${limit}`).then((res)=>{
-      let data = res.data;
-      console.log(data)
-      
       dispatch({
         type: `getBooks`,
-        payload: data
-      });
-      let temp = [];
-      data.forEach(e => {
-        if(e.categories) {
-          temp = new Set([...temp, ...e.categories]);
-          temp = [...temp]
-        }
-      });
-      window.localStorage.setItem('categories', JSON.stringify(temp))
-      dispatch({
-        type: `getCategories`,
-        payload: temp
+        payload: res.data
       });
     })
   }
@@ -30,14 +15,10 @@ export const getBooks = (page, limit) => {
 
 export const addMore = (page, limit) => {
   return (dispatch) => {
-    console.log(page, limit)
     axios.get(`${COMMON.GET_ITEMS}?_page=${page}&_limit=${limit}`).then((res)=>{
-      let data = res.data;
-      console.log(data)
-      
       dispatch({
         type: `addMore`,
-        payload: data
+        payload: res.data
       });
     })
   }
@@ -56,26 +37,48 @@ export const sort = (e) => {
   }
 }
 
-export const getSneakersFromSize = (e) => {
+export const getSneakersFromSize = (size, category, condition, sort) => {
   let str = '';
-  e.forEach((e, i)=>{
-    if(e.selected) {
+  console.log(size, category, category)
+  console.log((!!category) || (!!condition), '&&&&&&&&&&&&')
+  if(size.length>0){
+    ((!!category) || (!!condition)) && (str+='&');
+    size.forEach((e, i)=>{
       if(i!==0){
         str+='&'
       }
-      str+=`size_range_like=(${e.size},)|(${e.size}$)`
-    }
-  })
-  console.log(str)
+      // ((?<![\d])7,)|((?<![\d])7$)
+      str+=`size_range_like=((?<![0-9])${e},)|((?<![0-9])${e}$)`
+    })
+  }
+  if(category) {
+    ((size.length>0) || (!!condition)) && (str+='&');
+    str+=`gender_like=${category}`;
+  }
+  if(condition) {
+    ((size.length>0) || (!!category)) && (str+='&');
+    str+=`shoe_condition_like=${condition}`;
+  }
+  str += `&`;
+  str += sort;
+  str += `&_page=1&_limit=20`;
   return (dispatch) => {
+    let filter = {size, category};
+    dispatch({
+      type: `filter`,
+      payload: filter
+    });
+    dispatch({
+      type: `sort`,
+      payload: sort
+    });
     axios.get(`${COMMON.GET_ITEMS}?${str}`).then((res)=>{
-      console.log(res)
-  //     let data = res.data;
-  //     console.log(data)
-  //     dispatch({
-  //       type: `getBooks`,
-  //       payload: data
-  //     });
+      // let data = {sneakers: res.data, size};
+      // console.log(data)
+      dispatch({
+        type: `getBooks`,
+        payload: res.data
+      });
     })
   }
 }
