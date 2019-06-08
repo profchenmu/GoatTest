@@ -37,7 +37,7 @@ export const sort = (e) => {
   }
 }
 
-export const getSneakersFromSize = (size, category, condition, sort) => {
+export const getSneakersFromSize = (size, category, condition, sort, page) => {
   let str = '';
   console.log(size, category, category)
   console.log((!!category) || (!!condition), '&&&&&&&&&&&&')
@@ -61,7 +61,8 @@ export const getSneakersFromSize = (size, category, condition, sort) => {
   }
   str += `&`;
   str += sort;
-  str += `&_page=1&_limit=20`;
+  let pageNow = page || 1;
+  str += `&_page=${pageNow}&_limit=20`;
   return (dispatch) => {
     let filter = {size, category};
     dispatch({
@@ -73,8 +74,6 @@ export const getSneakersFromSize = (size, category, condition, sort) => {
       payload: sort
     });
     axios.get(`${COMMON.GET_ITEMS}?${str}`).then((res)=>{
-      // let data = {sneakers: res.data, size};
-      // console.log(data)
       dispatch({
         type: `getBooks`,
         payload: res.data

@@ -11,6 +11,7 @@ import * as homeActions from '../../redux/actions/homeActions';
 import Filter from './Filter';
 import Sorter from './Sorter';
 import Item from './Item';
+import Loading from '../../components/Loading';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './Goat.scss';
 
@@ -32,22 +33,35 @@ class Goat extends React.Component {
   }
 
   componentDidMount() {
-    this.props.actions.getBooks(1, 20);
+    // let search = this.props.location.search;
+    // let {filter, sort} = this.search;
+    // let {filter} = this.props;
+    // let {size, category, condition} = filter;
+    let {sort} = this.props
+    let storedSize = window.sessionStorage.getItem('size') || '[]'
+    let size = JSON.parse(storedSize);
+    let category = window.sessionStorage.getItem('category');
+    let condition = window.sessionStorage.getItem('condition');
+    this.props.actions.getSneakersFromSize(size, category, condition, sort)
+    // this.props.actions.getBooks(1, 20);
   }
 
   handleRemove(i) {
-    let newItems = this.state.items.slice();
-    newItems.splice(i, 1);
-    this.setState({items: newItems});
+    // let newItems = this.state.items.slice();
+    // newItems.splice(i, 1);
+    // this.setState({items: newItems});
   }
 
   addMore() {
-    this.props.actions.addMore(this.state.page + 1, 20, this.props.filter.size);
+    let {filter, sort} = this.props;
+    // console.log(sort)
+    let {size, category, condition} = filter;
+    this.props.actions.getSneakersFromSize(size, category, condition, sort, this.state.page + 1, 20);
   }
 
   render() {
+    console.log(this.props)
     const {sneakers} = this.props;
-    console.log(sneakers, 'kkkkkkk')
     // const items = sneakers.map((item, i) => (
     //   <div key={item} onClick={() => this.handleRemove(i)}>
     //     {item}
@@ -56,14 +70,12 @@ class Goat extends React.Component {
 
     return (
       <div>
+        <Loading></Loading>
         <Sorter></Sorter>
         <Filter></Filter>
         
         <Container>
           <Row>
-            
-            
-            
         {sneakers.map((e, i)=>(
           <Col xs={12} sm={6} md={4} lg={3}  key={`sneaker${i}`}>
             <Item details={e}></Item>
@@ -106,7 +118,8 @@ function mapStateToProps(state) {
   console.log(state)
   return {
     sneakers: state.homeReducer.sneakers,
-    filter: state.filterReducer
+    filter: state.filterReducer,
+    sort: state.sortReducer.sort
   }
 }
 function mapDispatchToProps(dispatch) {

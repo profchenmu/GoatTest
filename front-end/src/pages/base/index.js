@@ -44,7 +44,7 @@ class App extends React.Component {
               <Link to="/"><img src={home} alt="home" width="40" height="40" /></Link>
             </NavItem>
           </Navbar>
-          <Route path="/goat" exact component={Goat} />
+          <Route path="/goat" exact render={(props)=>(<Goat {...props} />)} />
           <Route path="/goat/details/:id" component={Details} />
         </BrowserRouter>
       </div>

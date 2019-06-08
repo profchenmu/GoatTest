@@ -37,9 +37,10 @@ class Details extends React.Component {
       name,
       release_year,
       release_date,
+      main_picture_url,
+      original_picture_url,
       brand_name,
       details,
-      grid_picture_url
     } = this.props.details;
     return (
       <div>
@@ -48,7 +49,14 @@ class Details extends React.Component {
         <p>{release_date}</p>
         <p>{brand_name}</p>
         <p>{details}</p>
-        <img src={grid_picture_url} alt="" width="200" height="200" />
+        <div className="small-img-holder">
+          <img src={main_picture_url} alt="" width="200" height="200" />
+        </div>
+        
+        <div className="large-img-holder">
+          <img src={original_picture_url} alt="" width="200" height="200" />
+        </div>
+        
       </div>
     )
   }
