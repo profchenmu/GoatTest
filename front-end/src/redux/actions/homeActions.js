@@ -28,7 +28,6 @@ export const sort = (e) => {
   return (dispatch) => {
     axios.get(`${COMMON.GET_ITEMS}?${e}`).then((res)=>{
       let data = res.data;
-      console.log(data)
       dispatch({
         type: `getBooks`,
         payload: data
@@ -37,17 +36,14 @@ export const sort = (e) => {
   }
 }
 
-export const getSneakersFromSize = (size, category, condition, sort, page) => {
+export const getSneakersFromSize = (size, category, condition, sort, page, needLoading) => {
   let str = '';
-  console.log(size, category, category)
-  console.log((!!category) || (!!condition), '&&&&&&&&&&&&')
   if(size.length>0){
     ((!!category) || (!!condition)) && (str+='&');
     size.forEach((e, i)=>{
       if(i!==0){
         str+='&'
       }
-      // ((?<![\d])7,)|((?<![\d])7$)
       str+=`size_range_like=((?<![0-9])${e},)|((?<![0-9])${e}$)`
     })
   }
@@ -64,6 +60,12 @@ export const getSneakersFromSize = (size, category, condition, sort, page) => {
   let pageNow = page || 1;
   str += `&_page=${pageNow}&_limit=20`;
   return (dispatch) => {
+    if(needLoading){
+      dispatch({
+        type: `loading`,
+        payload: null
+      })
+    }
     let filter = {size, category};
     dispatch({
       type: `filter`,

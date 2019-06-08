@@ -42,7 +42,7 @@ class Goat extends React.Component {
     let size = JSON.parse(storedSize);
     let category = window.sessionStorage.getItem('category');
     let condition = window.sessionStorage.getItem('condition');
-    this.props.actions.getSneakersFromSize(size, category, condition, sort)
+    this.props.actions.getSneakersFromSize(size, category, condition, sort, 1, 20, true)
     // this.props.actions.getBooks(1, 20);
   }
 
@@ -60,31 +60,32 @@ class Goat extends React.Component {
   }
 
   render() {
-    console.log(this.props)
-    const {sneakers} = this.props;
+    const {sneakers, isLoading} = this.props;
     // const items = sneakers.map((item, i) => (
     //   <div key={item} onClick={() => this.handleRemove(i)}>
     //     {item}
     //   </div>
     // ));
-
     return (
       <div>
-        <Loading></Loading>
-        <Sorter></Sorter>
-        <Filter></Filter>
-        
-        <Container>
-          <Row>
-        {sneakers.map((e, i)=>(
-          <Col xs={12} sm={6} md={4} lg={3}  key={`sneaker${i}`}>
-            <Item details={e}></Item>
-          </Col>
-        ))}
-        
-          </Row>
-        </Container>
-        <button onClick={this.addMore.bind(this)}>Add Item</button>
+        {
+          isLoading?(<Loading></Loading>):(
+          <div>
+            <Sorter></Sorter>
+            <Filter></Filter>
+            
+            <Container>
+              <Row>
+                {sneakers.map((e, i)=>(
+                  <Col xs={12} sm={6} md={4} lg={3}  key={`sneaker${i}`}>
+                    <Item details={e}></Item>
+                  </Col>
+                ))}
+              </Row>
+            </Container>
+            <button onClick={this.addMore.bind(this)}>Add Item</button>
+          </div>)}      
+
         {/* <CSSTransitionGroup
           transitionName="example"
           transitionEnterTimeout={500}
@@ -92,21 +93,6 @@ class Goat extends React.Component {
           {items}
         </CSSTransitionGroup>
         <PerfectScrollbar>
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
-            ... SCROLLBAR CONTENT HERE ...
             ... SCROLLBAR CONTENT HERE ...
         </PerfectScrollbar> */}
       </div>
@@ -118,6 +104,7 @@ function mapStateToProps(state) {
   console.log(state)
   return {
     sneakers: state.homeReducer.sneakers,
+    isLoading: state.homeReducer.isLoading,
     filter: state.filterReducer,
     sort: state.sortReducer.sort
   }
