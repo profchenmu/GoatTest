@@ -36,10 +36,9 @@ export const sort = (e) => {
   }
 }
 
-export const getSneakersFromSize = (size, category, condition, sort, page, needLoading) => {
+export const getSneakersFromSize = (size, category, condition, sort, page, needLoading, isAddMore) => {
   let str = '';
   if(size.length>0){
-    ((!!category) || (!!condition)) && (str+='&');
     size.forEach((e, i)=>{
       if(i!==0){
         str+='&'
@@ -48,17 +47,20 @@ export const getSneakersFromSize = (size, category, condition, sort, page, needL
     })
   }
   if(category) {
-    ((size.length>0) || (!!condition)) && (str+='&');
+    (str.length>0) && (str+='&')
     str+=`gender_like=${category}`;
   }
   if(condition) {
-    ((size.length>0) || (!!category)) && (str+='&');
+    (str.length>0) && (str+='&')
     str+=`shoe_condition_like=${condition}`;
   }
-  str += `&`;
-  str += sort;
+  if(sort) {
+    (str.length>0) && (str+='&')
+    str += sort;
+  }
   let pageNow = page || 1;
-  str += `&_page=${pageNow}&_limit=20`;
+  (str.length>0) && (str+='&')
+  str += `_page=${pageNow}&_limit=20`;
   return (dispatch) => {
     if(needLoading){
       dispatch({
@@ -76,8 +78,9 @@ export const getSneakersFromSize = (size, category, condition, sort, page, needL
       payload: sort
     });
     axios.get(`${COMMON.GET_ITEMS}?${str}`).then((res)=>{
+      let type = isAddMore?`addMore`:`getBooks`;
       dispatch({
-        type: `getBooks`,
+        type,
         payload: res.data
       });
     })

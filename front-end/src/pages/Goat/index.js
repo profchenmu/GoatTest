@@ -37,13 +37,14 @@ class Goat extends React.Component {
     // let {filter, sort} = this.search;
     // let {filter} = this.props;
     // let {size, category, condition} = filter;
-    let {sort} = this.props
-    let storedSize = window.sessionStorage.getItem('size') || '[]'
-    let size = JSON.parse(storedSize);
+    let _sort = window.sessionStorage.getItem('sort') || '{}'
+    let sort = JSON.parse(_sort)
+    let _size = window.sessionStorage.getItem('size') || '[]'
+    let size = JSON.parse(_size);
     let category = window.sessionStorage.getItem('category');
     let condition = window.sessionStorage.getItem('condition');
-    this.props.actions.getSneakersFromSize(size, category, condition, sort, 1, 20, true)
-    // this.props.actions.getBooks(1, 20);
+    // size, category, condition, sort, page, needLoading, isAddMore
+    this.props.actions.getSneakersFromSize(size, category, condition, sort.sortBy, 1, true)
   }
 
   handleRemove(i) {
@@ -54,9 +55,8 @@ class Goat extends React.Component {
 
   addMore() {
     let {filter, sort} = this.props;
-    // console.log(sort)
     let {size, category, condition} = filter;
-    this.props.actions.getSneakersFromSize(size, category, condition, sort, this.state.page + 1, 20);
+    this.props.actions.getSneakersFromSize(size, category, condition, sort, this.state.page + 1, false, true);
   }
 
   render() {

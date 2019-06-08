@@ -14,7 +14,7 @@ import cartOpen from './images/cart-open.svg';
 import './base.scss';
 import * as homeActions from '../../redux/actions/homeActions';
 
-import { Navbar, NavItem } from 'react-bootstrap';
+import { Navbar, NavItem, Dropdown } from 'react-bootstrap';
 
 class App extends React.Component {
   constructor(props) {
@@ -24,26 +24,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // fetch books from server
-    // this.props.actions.getBooks();
-    // get cart data from localStorage
-    // this.props.actions.getCartFromStorage();
-  }
-  barSelect(e) {
-    // change icon color
-    this.setState({opened: e})
   }
   render() {
-    let {itemCount} = this.props;
-    let {opened} = this.state;
     return (
       <div className="base">
         <BrowserRouter>
-          <Navbar className="lightblue" expand="all" onToggle={this.barSelect.bind(this)}>
-            <NavItem as="div" className="btn-home">
-              <Link to="/"><img src={home} alt="home" width="40" height="40" /></Link>
-            </NavItem>
-          </Navbar>
           <Route path="/goat" exact render={(props)=>(<Goat {...props} />)} />
           <Route path="/goat/details/:id" component={Details} />
         </BrowserRouter>

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import * as homeActions from '../../../redux/actions/homeActions';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Dropdown } from 'react-bootstrap';
 
 class Filter extends React.Component {
   constructor(props) {
@@ -14,41 +14,40 @@ class Filter extends React.Component {
     }
     this.state = {
       filterSize,
-      filterCategory: null,
-      condition: null,
+      category: '',
+      condition: '',
+      filterLength: 0,
     }
   }
   componentDidMount() {
     const storedSize = window.sessionStorage.getItem('size') || '[]'
-    const condition = window.sessionStorage.getItem('condition') || null
-    const filterCategory = window.sessionStorage.getItem('filterCategory') || null
+    const condition = window.sessionStorage.getItem('condition') || ''
+    const category = window.sessionStorage.getItem('category') || ''
     const size = JSON.parse(storedSize);
     const {filterSize} = this.state;
     size.forEach((e)=>{
       let index = ((e/0.5 - 1)<0)?0:(e/0.5 - 1);
       filterSize[index].selected = true;
     });
+    let filterLength = size.length;
+    condition && filterLength++;
+    category && filterLength++;
     this.setState({
       condition,
-      filterCategory,
-      filterSize
+      category,
+      filterSize,
+      filterLength
     })
   }
-  showDetail() {
-    // try cache data for detail page
-    // window.localStorage.setItem('bookDetail', JSON.stringify(this.props.data))
-  }
-  addItem(data) {
-    // this.props.actions.addItem(data)
-  }
+
   handleSizeFilter(size, i) {
     let filterSize = this.state.filterSize;
     filterSize[i].selected = !filterSize[i].selected;
-    this.setState({filterSize}, ()=>{
+    let _l = filterSize[i].selected?1:-1
+    this.setState({filterSize, filterLength: this.state.filterLength+_l}, ()=>{
       let filterSizeArr = []
       let {filter} = this.props;
       filterSize.forEach((e)=>{
-        console.log(e, 'e')
         if(e.selected === true){
           filterSizeArr.push(e.size);
         }
@@ -60,9 +59,10 @@ class Filter extends React.Component {
 
   handleShoesConditionFilter(condition) {
     let oldCondition = this.state.condition;
-    let newCondition = (condition === oldCondition)? null: condition;
+    let newCondition = (condition === oldCondition)? '': condition;
     let {filter, sort} = this.props;
-    this.setState({condition: newCondition}, ()=>{
+    let _l = newCondition?1:-1;
+    this.setState({condition: newCondition, filterLength: this.state.filterLength+_l}, ()=>{
       window.sessionStorage.setItem('condition', newCondition)
       this.props.actions.getSneakersFromSize(filter.size, filter.category, newCondition, sort);
     })
@@ -70,20 +70,23 @@ class Filter extends React.Component {
 
   handleCategoryFilter(category) {
     let oldCategory = this.state.category;
-    let newCategory = (category === oldCategory)? null: category;
+    let newCategory = (category === oldCategory)? '': category;
     let {filter, sort} = this.props;
-    this.setState({category: newCategory}, ()=>{
+    let _l = newCategory?1:-1;
+    this.setState({category: newCategory, filterLength: this.state.filterLength+_l}, ()=>{
       window.sessionStorage.setItem('category', newCategory)
       this.props.actions.getSneakersFromSize(filter.size, newCategory, filter.condition, sort);
     })
   }
 
   render() {
-    let {filterSize, category, condition} = this.state;
+    let {filterSize, category, condition, filterLength} = this.state;
     return (
       <div>
+        
         <Container>
           <label>CATEGORY</label>
+          <small>{filterLength}</small>
           <Row>
           <Col xs={6}>
               <span onClick={this.handleCategoryFilter.bind(this, 'men')}>MEN {`${category === 'men'}`}</span>

@@ -8,39 +8,46 @@ class Sorter extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      sortTitle: 'POPULAR'
     }
     this.sortBy = [
+      {sortBy: null, title: 'POPULAR'},
       {sortBy: '_sort=release_date_unix&_order=desc', title: 'NEW'},
-      // {sortBy: 'popular', title: 'POPULAR'},
       // {sortBy: 'upcoming', title: 'UPCOMING'},
       {sortBy: '_sort=retail_price_cents&_order=asc', title: 'PRICE(LOW-HIGH)'},
       {sortBy: '_sort=retail_price_cents&_order=desc', title: 'PRICE(HIGH-LOW)'},
     ]
   }
-
-  showDetail() {
-    window.localStorage.setItem('bookDetail', JSON.stringify(this.props.data))
-  }
-  addItem(data) {
-    this.props.actions.addItem(data)
+  componentDidMount() {
+    let _sortInfo = window.sessionStorage.getItem('sort');
+    let sortInfo = _sortInfo?JSON.parse(_sortInfo):this.sortBy[0];
+    this.setState({
+      sortTitle: sortInfo.title,
+    })
   }
   sort(sort){
     // this.props.actions.sort(e)
     let {filter} = this.props;
-    let {size, category, condition} = filter
-    this.props.actions.getSneakersFromSize(size, category, condition, sort)
+    let {size, category, condition} = filter;
+    let sortInfo = this.sortBy[sort] || this.sortBy[0];
+    window.sessionStorage.setItem('sort', JSON.stringify(sortInfo))
+    this.setState({
+      sortTitle: sortInfo.title
+    }, ()=>{
+      this.props.actions.getSneakersFromSize(size, category, condition, sortInfo.sortBy)
+    })
   }
   render() {
     return (
       <div>
         <Dropdown>
           <Dropdown.Toggle variant="success" id="dropdown-basic">
-            
+            {this.state.sortTitle}
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
             {this.sortBy.map((e, i)=>(
-              <Dropdown.Item active={i===0} key={`sort${i}`} onSelect={this.sort.bind(this)} eventKey={e.sortBy}>{e.title}</Dropdown.Item>
+              <Dropdown.Item key={`sort${i}`} onSelect={this.sort.bind(this)} eventKey={i}>{e.title}</Dropdown.Item>
             ))}
           </Dropdown.Menu>
         </Dropdown>
