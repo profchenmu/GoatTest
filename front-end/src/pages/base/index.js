@@ -1,20 +1,11 @@
 import React from 'react';
-import Home from '../Home';
 import Details from '../Details';
-import Cart from '../Cart';
-import Categories from '../Categories';
 import Goat from '../Goat';
 import home from './images/home.svg';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { BrowserRouter, Route } from "react-router-dom";
 import { Link } from 'react-router-dom';
-import cart from './images/cart.svg';
-import cartOpen from './images/cart-open.svg';
+import { Navbar, NavItem, Container } from 'react-bootstrap';
 import './base.scss';
-import * as homeActions from '../../redux/actions/homeActions';
-
-import { Navbar, NavItem, Dropdown } from 'react-bootstrap';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,32 +14,21 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
-  }
   render() {
     return (
-      <div className="base">
+      <Container className="base">
         <BrowserRouter>
-          <Route path="/goat" exact render={(props)=>(<Goat {...props} />)} />
-          <Route path="/goat/details/:id" component={Details} />
+          <Navbar className="goat-navbar" expand="all" fixed="top">
+            <NavItem as="div" className="btn-home">
+              <Link to="/"><img src={home} alt="home" width="40" height="40" /></Link>
+            </NavItem>
+          </Navbar>
+          <Route path="/" exact render={(props)=>(<Goat {...props} />)} />
+          <Route path="/details/:id" component={Details} />
         </BrowserRouter>
-      </div>
+      </Container>
     )
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    itemCount: state.cartReducer.itemCount
-  }
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(homeActions, dispatch)
-  }
-}
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(App)
+export default App;

@@ -1,42 +1,7 @@
 import axios from 'axios';
 import { COMMON } from '../api';
 
-export const getBooks = (page, limit) => {
-  return (dispatch) => {
-    console.log(page, limit)
-    axios.get(`${COMMON.GET_ITEMS}?_page=${page}&_limit=${limit}`).then((res)=>{
-      dispatch({
-        type: `getBooks`,
-        payload: res.data
-      });
-    })
-  }
-}
-
-export const addMore = (page, limit) => {
-  return (dispatch) => {
-    axios.get(`${COMMON.GET_ITEMS}?_page=${page}&_limit=${limit}`).then((res)=>{
-      dispatch({
-        type: `addMore`,
-        payload: res.data
-      });
-    })
-  }
-}
-
-export const sort = (e) => {
-  return (dispatch) => {
-    axios.get(`${COMMON.GET_ITEMS}?${e}`).then((res)=>{
-      let data = res.data;
-      dispatch({
-        type: `getBooks`,
-        payload: data
-      });
-    })
-  }
-}
-
-export const getSneakersFromSize = (size, category, condition, sort, page, needLoading, isAddMore) => {
+export const getSneakersFromSize = (size, category, condition, sort, page, loadingType, isShowMore) => {
   let str = '';
   if(size.length>0){
     size.forEach((e, i)=>{
@@ -62,9 +27,10 @@ export const getSneakersFromSize = (size, category, condition, sort, page, needL
   (str.length>0) && (str+='&')
   str += `_page=${pageNow}&_limit=20`;
   return (dispatch) => {
-    if(needLoading){
+    if(loadingType){
+      console.log(loadingType, 'lllllll')
       dispatch({
-        type: `loading`,
+        type: loadingType,
         payload: null
       })
     }
@@ -78,7 +44,7 @@ export const getSneakersFromSize = (size, category, condition, sort, page, needL
       payload: sort
     });
     axios.get(`${COMMON.GET_ITEMS}?${str}`).then((res)=>{
-      let type = isAddMore?`addMore`:`getBooks`;
+      let type = isShowMore?`showMore`:`getList`;
       dispatch({
         type,
         payload: res.data
@@ -87,17 +53,3 @@ export const getSneakersFromSize = (size, category, condition, sort, page, needL
   }
 }
 
-export const getCartFromStorage = () => {
-  let data = {
-    itemCount: 0,
-    cart: []
-  }
-  let bookCartStr = window.localStorage.getItem('booksCart')
-  if(bookCartStr) {
-    data = JSON.parse(bookCartStr);
-  }
-  return {
-    type: `getCartFromStorage`,
-    payload: data
-  }
-}

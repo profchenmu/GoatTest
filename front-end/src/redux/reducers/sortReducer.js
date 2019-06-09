@@ -4,9 +4,6 @@ let initialState = {
 export default (state = initialState, action) => {
   switch (action.type){
     case `sort`:
-      // let size = state.size;
-      // size.push(action.payload)
-      // console.log(size, 'eeeeee')
       return Object.assign({}, state, {sort: action.payload});
     default:
       return state;

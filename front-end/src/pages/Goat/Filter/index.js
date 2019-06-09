@@ -1,10 +1,9 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
 import * as homeActions from '../../../redux/actions/homeActions';
 import './filter.scss';
-import { Container, Row, Col, Dropdown, Card } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 class Filter extends React.Component {
   constructor(props) {
@@ -135,14 +134,6 @@ class Filter extends React.Component {
               </div>
             </Col>
           </Row>
-          {/* <Row>
-            <Col xs={6}>
-              <span onClick={this.handleCategoryFilter.bind(this, 'youth')}>YOUTH {`${category === 'youth'}`}</span>
-            </Col>
-            <Col xs={6}>
-              <span onClick={this.handleCategoryFilter.bind(this, 'infant')}>INFANT {`${category === 'infant'}`}</span>
-            </Col>
-          </Row> */}
         </Container>
       </div>
     )

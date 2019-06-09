@@ -1,10 +1,6 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-import * as chartAction from '../../../redux/actions/cartActions';
 import * as moment from 'moment'
-import {Card} from 'react-bootstrap'
 import './item.scss'
 
 class Item extends React.Component {
@@ -14,32 +10,20 @@ class Item extends React.Component {
     }
   }
 
-  showDetail() {
-    // try cache data for detail page
-    window.localStorage.setItem('bookDetail', JSON.stringify(this.props.data))
-  }
-  addItem(data) {
-    this.props.actions.addItem(data)
-  }
-
   render() {
     const {
       id,
       name,
       release_year,
       release_date,
-      brand_name,
       retail_price_cents,
-      details,
       grid_picture_url
     } = this.props.details;
-    console.log(release_year)
     return (
       <div className="item">
         <div className="item-holder">
-        <Link to={`/goat/details/${id}`}>
+        <Link to={`/details/${id}`}>
         
-          {/* <p>{release_year}</p> */}
           {release_year>2018?(
             <div className="new-label text-left">
               <span className="time">{moment(release_date).format('MMM DD')}</span>
@@ -48,8 +32,6 @@ class Item extends React.Component {
           ):null}
           <p className="item-price text-right">$ {retail_price_cents/100}</p>
           <p className="item-name text-center">{name}</p>
-          {/* <p>{brand_name}</p>
-          <p>{details}</p> */}
           <img src={grid_picture_url} alt="" width="200" height="200" />
           
         </Link>
@@ -58,20 +40,4 @@ class Item extends React.Component {
     )
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(chartAction, dispatch)
-  }
-}
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Item)
+export default Item;

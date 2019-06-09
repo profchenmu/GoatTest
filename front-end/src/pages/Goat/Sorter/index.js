@@ -1,8 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
-import { Container, Row, Col, Dropdown } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import * as homeActions from '../../../redux/actions/homeActions';
 import './sorter.scss';
 class Sorter extends React.Component {
@@ -12,9 +11,8 @@ class Sorter extends React.Component {
       sortTitle: 'POPULAR'
     }
     this.sortBy = [
-      {sortBy: null, title: 'POPULAR'},
+      {sortBy: '', title: 'POPULAR'},
       {sortBy: '_sort=release_date_unix&_order=desc', title: 'NEW'},
-      // {sortBy: 'upcoming', title: 'UPCOMING'},
       {sortBy: '_sort=retail_price_cents&_order=asc', title: 'PRICE(LOW-HIGH)'},
       {sortBy: '_sort=retail_price_cents&_order=desc', title: 'PRICE(HIGH-LOW)'},
     ]
@@ -27,7 +25,6 @@ class Sorter extends React.Component {
     })
   }
   sort(sort){
-    // this.props.actions.sort(e)
     let {filter} = this.props;
     let {size, category, condition} = filter;
     let sortInfo = this.sortBy[sort] || this.sortBy[0];

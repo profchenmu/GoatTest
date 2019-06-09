@@ -1,12 +1,16 @@
 .detail {
   padding-top: 2rem;
+  .detail-loading {
+    width: 70%;
+    margin: auto;
+  }
   .detail-table {
     margin-top: 2rem;
     margin-bottom: 4rem;
     .title {
       display: block;
       color: #25252D;
-      font-weight: 900;
+      font-weight: 600;
       font-size: .8rem;
     }
     .info {

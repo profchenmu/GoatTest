@@ -14,30 +14,15 @@ class Details extends React.Component {
     }
   }
 
-  setDetailFromLocalStorage() {
-  }
-
-  componentWillUnmount() {
-  }
-
   componentDidMount() {
     let id = this.props.match.params.id;
     this.props.actions.getDetails(id)
   }
 
-  componentWillReceiveProps(nextProps) {
-  }
-
-  addItem(data) {
-    
-  }
-
   render() {
     const {isLoading} = this.props;
     const {
-      id,
       name,
-      release_year,
       release_date,
       main_picture_url,
       brand_name,
@@ -58,25 +43,29 @@ class Details extends React.Component {
     const story = story_html?story_html.replace(/(<[\w]+>)|(<\/[\w]+>)/g, ''):null
     return (
       <div className="detail">
-        {
-          isLoading?(<Loading></Loading>):(
         <Container>
           <Row className="detail-main">
             <Col xs={12} md={6} className="col-img">
-              <div className="img-holder">
-                <img src={main_picture_url} alt="" />
-              </div>
-              <p className="keywords">{keywords.join(' / ')}</p>
-              
-              {/* <div className="large-img-holder">
-                <img src={original_picture_url} alt="" width="200" height="200" />
-              </div> */}
+            {isLoading?(
+              <div className="detail-loading"><Loading></Loading></div>
+              ):(
+              <>
+                <div className="img-holder">
+                  <img src={main_picture_url} alt="" />
+                </div>
+                <p className="keywords">{keywords.join(' / ')}</p>
+              </>
+            )}
             </Col>
             <Col className="col-name">
+            {isLoading?(
+              <div className="detail-loading"><Loading></Loading></div>
+              ):(
               <div>
                 <h1>{name}</h1>
                 <p>SKU {sku}</p>
               </div>
+            )}
             </Col>
           </Row>
           <Container className="detail-table">
@@ -122,7 +111,7 @@ class Details extends React.Component {
           </Container>
           
         </Container>
-          )}
+          
       </div>
     )
   }

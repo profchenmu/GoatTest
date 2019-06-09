@@ -17,6 +17,11 @@
 }
 
 .goat {
+  .sneakers-loading {
+    margin: auto;
+    margin-top: 30vh;
+    width: 70%;
+  }
   .no-padding {
     padding-left: 0;
     padding-right: 0;
@@ -34,7 +39,7 @@
   .filter-btn {
     height: 3rem;
     line-height: 3rem;
-    font-weight: 900;
+    font-weight: 600;
     cursor: pointer;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -53,12 +58,16 @@
     margin: 2rem auto;
     height: 3rem;
     line-height: 3rem;
+    width: 150px;
     border: .5px solid black;
     padding: 0 2rem;
     cursor: pointer;
+    overflow: hidden;
+    .show-more-loading {
+      margin-top: 25%;
+    }
     &:hover {
-      background: #25252D;
-      color: #fff;
+      background: rgb(200, 200, 200);
     }
   }
 }
@@ -127,12 +136,12 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
   .sidebar {
-    width: 30%;
+    width: 24%;
     max-width: 360px;
-    padding-right: 2%;
+    padding-right: 3%;
   }
   .main {
-    width: 70%;
+    width: 76%;
     &.full {
       width: 100%;
     }
