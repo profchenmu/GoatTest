@@ -1,0 +1,80 @@
+.item {
+  width: 100%;
+  padding-top: 100%;
+  
+  // border-top: solid .5px #25252D;
+  // border-left: solid .5px #25252D;
+  // border-right: .5px solid #25252D;
+  // border-bottom: .5px solid #25252D;
+  position: relative;
+  .item-holder {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    img {
+      top: 25%;
+      left: 25%;
+      position: absolute;
+      width: 50%;
+      height: 50%;
+    }
+    .item-name {
+      font-size: .8rem;
+      position: absolute;
+      bottom: .6rem;
+      width: 80%;
+      left: 10%;
+      overflow:hidden; 
+      text-overflow:ellipsis;
+      display:-webkit-box; 
+      -webkit-line-clamp: 2; 
+      /*! autoprefixer: off */
+      -webkit-box-orient: vertical;
+    }
+    .item-price {
+      font-size: .8rem;
+      position: absolute;
+      right: 1rem;
+      top: .8rem;
+    }
+    .new-label {
+      span {
+        font-size: .8rem;
+        position: absolute;
+        left: 1rem;
+        top: .8rem;
+        animation-name: labelfade;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+        &.new {
+          animation-delay: 0s;
+          opacity: 0;
+          &::before {
+            content: " ";
+            width: 6px;
+            height: 6px;
+            background: red;
+            margin-top: -2px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 3px;
+          }
+        }
+        &.time {
+          opacity: 0;
+          animation-delay: 2.5s;
+        }
+      }
+    }
+  }
+}
+@keyframes labelfade {
+  0%, 50%, 100% {
+    opacity: 0;
+  }
+  10%, 40% {
+    opacity: 1;
+  }
+}

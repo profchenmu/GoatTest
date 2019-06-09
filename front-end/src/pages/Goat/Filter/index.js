@@ -3,7 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import * as homeActions from '../../../redux/actions/homeActions';
-import { Container, Row, Col, Dropdown } from 'react-bootstrap';
+import './filter.scss';
+import { Container, Row, Col, Dropdown, Card } from 'react-bootstrap';
 
 class Filter extends React.Component {
   constructor(props) {
@@ -16,7 +17,6 @@ class Filter extends React.Component {
       filterSize,
       category: '',
       condition: '',
-      filterLength: 0,
     }
   }
   componentDidMount() {
@@ -29,22 +29,17 @@ class Filter extends React.Component {
       let index = ((e/0.5 - 1)<0)?0:(e/0.5 - 1);
       filterSize[index].selected = true;
     });
-    let filterLength = size.length;
-    condition && filterLength++;
-    category && filterLength++;
     this.setState({
       condition,
       category,
       filterSize,
-      filterLength
     })
   }
 
   handleSizeFilter(size, i) {
     let filterSize = this.state.filterSize;
     filterSize[i].selected = !filterSize[i].selected;
-    let _l = filterSize[i].selected?1:-1
-    this.setState({filterSize, filterLength: this.state.filterLength+_l}, ()=>{
+    this.setState({filterSize}, ()=>{
       let filterSizeArr = []
       let {filter} = this.props;
       filterSize.forEach((e)=>{
@@ -61,8 +56,7 @@ class Filter extends React.Component {
     let oldCondition = this.state.condition;
     let newCondition = (condition === oldCondition)? '': condition;
     let {filter, sort} = this.props;
-    let _l = newCondition?1:-1;
-    this.setState({condition: newCondition, filterLength: this.state.filterLength+_l}, ()=>{
+    this.setState({condition: newCondition}, ()=>{
       window.sessionStorage.setItem('condition', newCondition)
       this.props.actions.getSneakersFromSize(filter.size, filter.category, newCondition, sort);
     })
@@ -72,56 +66,73 @@ class Filter extends React.Component {
     let oldCategory = this.state.category;
     let newCategory = (category === oldCategory)? '': category;
     let {filter, sort} = this.props;
-    let _l = newCategory?1:-1;
-    this.setState({category: newCategory, filterLength: this.state.filterLength+_l}, ()=>{
+    this.setState({category: newCategory}, ()=>{
       window.sessionStorage.setItem('category', newCategory)
       this.props.actions.getSneakersFromSize(filter.size, newCategory, filter.condition, sort);
     })
   }
 
   render() {
-    let {filterSize, category, condition, filterLength} = this.state;
+    let {filterSize, category, condition} = this.state;
     return (
-      <div>
-        
+      <div className="filter">
         <Container>
-          <label>CATEGORY</label>
-          <small>{filterLength}</small>
+          <Row className="text-left label-holder">
+            <label>CATEGORY</label>
+          </Row>
           <Row>
-          <Col xs={6}>
-              <span onClick={this.handleCategoryFilter.bind(this, 'men')}>MEN {`${category === 'men'}`}</span>
+            <Col className="small-padding" xs={6}>
+              <div className={`filter-category${(category === 'men')?(` active`):''}`} onClick={this.handleCategoryFilter.bind(this, 'men')}>
+                <span>MEN</span>
+              </div>
             </Col>
-            <Col xs={6}>
-              <span onClick={this.handleCategoryFilter.bind(this, 'women')}>WOMEN {`${category === 'women'}`}</span>
+            <Col className="small-padding" xs={6}>
+              <div className={`filter-category${(category === 'women')?(` active`):''}`} onClick={this.handleCategoryFilter.bind(this, 'women')}>
+                <span>WOMEN</span>
+              </div>
             </Col>
           </Row>
           <Row>
-            <Col xs={6}>
-              <span onClick={this.handleCategoryFilter.bind(this, 'youth')}>YOUTH {`${category === 'youth'}`}</span>
+            <Col xs={6} className="small-padding">
+              <div className={`filter-category${(category === 'youth')?(` active`):''}`} onClick={this.handleCategoryFilter.bind(this, 'youth')}>
+                <span>YOUTH</span>
+              </div>
             </Col>
-            <Col xs={6}>
-              <span onClick={this.handleCategoryFilter.bind(this, 'infant')}>INFANT {`${category === 'infant'}`}</span>
+            <Col xs={6} className="small-padding">
+              <div className={`filter-category${(category === 'infant')?(` active`):''}`} onClick={this.handleCategoryFilter.bind(this, 'infant')}>
+                <span>INFANT</span>
+              </div>
             </Col>
           </Row>
         </Container>
         <Container>
-          <label>US SIZE</label>
+          <Row className="text-left label-holder">
+            <label>US SIZE</label>
+          </Row>
           <Row>
             {filterSize.map((e, i)=>(
-              <Col key={`size${i}`} xs={2}>
-                <span onClick={this.handleSizeFilter.bind(this, e, i)}>{`${e.selected}`} / {e.size}</span>
+              <Col key={`size${i}`} xs={2} className="small-padding">
+                <div className={`filter-size${e.selected?(` active`):''}`} onClick={this.handleSizeFilter.bind(this, e, i)}>
+                  <span>{e.size}</span>
+                </div>
               </Col>
             ))}
           </Row>
         </Container>
         <Container>
-          <label>CONDITION</label>
+          <Row className="text-left label-holder">
+            <label>CONDITION</label>
+          </Row>
           <Row>
-            <Col xs={12}>
-              <span onClick={this.handleShoesConditionFilter.bind(this, 'used')}>USED {`${condition === 'used'}`}</span>
+            <Col xs={12} className="small-padding">
+              <div className={`filter-condition${(condition === 'used')?(` active`):''}`} onClick={this.handleShoesConditionFilter.bind(this, 'used')}>
+                <span>USED</span>
+              </div>
             </Col>
-            <Col xs={12}>
-              <span onClick={this.handleShoesConditionFilter.bind(this, 'new_no_defects')}>NEW NO DEFECTS {`${condition === 'new_no_defects'}`}</span>
+            <Col xs={12} className="small-padding">
+              <div className={`filter-condition${(condition === 'new_no_defects')?(` active`):''}`} onClick={this.handleShoesConditionFilter.bind(this, 'new_no_defects')}>
+                <span>NEW NO DEFECTS</span>
+              </div>
             </Col>
           </Row>
           {/* <Row>

@@ -68,7 +68,7 @@ export const getSneakersFromSize = (size, category, condition, sort, page, needL
         payload: null
       })
     }
-    let filter = {size, category};
+    let filter = {size, category, condition};
     dispatch({
       type: `filter`,
       payload: filter

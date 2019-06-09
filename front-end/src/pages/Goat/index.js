@@ -18,13 +18,15 @@ import './Goat.scss';
 class Goat extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {litmit: 20, page: 1};
+    this.state = {
+      litmit: 20, page: 1,
+      showFilters: false,
+      // filterSize: 0,
+    };
     this.handleAdd = this.handleAdd.bind(this);
   }
 
   handleAdd() {
-    const newItems = this.state.items.concat('123');
-    this.setState({items: newItems});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,13 +46,25 @@ class Goat extends React.Component {
     let category = window.sessionStorage.getItem('category');
     let condition = window.sessionStorage.getItem('condition');
     // size, category, condition, sort, page, needLoading, isAddMore
-    this.props.actions.getSneakersFromSize(size, category, condition, sort.sortBy, 1, true)
+    this.props.actions.getSneakersFromSize(size, category, condition, sort.sortBy, 1, true);
+
+    // let filterLength = size.length;
+    // condition && filterLength++;
+    // category && filterLength++;
+    // this.setState({
+    //   filterLength
+    // })
+
   }
 
   handleRemove(i) {
     // let newItems = this.state.items.slice();
     // newItems.splice(i, 1);
     // this.setState({items: newItems});
+  }
+
+  showFilters() {
+    this.setState({showFilters: !this.state.showFilters})
   }
 
   addMore() {
@@ -60,31 +74,63 @@ class Goat extends React.Component {
   }
 
   render() {
-    const {sneakers, isLoading} = this.props;
+    const {sneakers, isLoading, filter} = this.props;
+    const {showFilters} = this.state;
+    console.log(filter, 'rrrrrrr')
+    let filterLength = filter.size.length;
+    filter.condition && filterLength++;
+    filter.category && filterLength++;
     // const items = sneakers.map((item, i) => (
     //   <div key={item} onClick={() => this.handleRemove(i)}>
     //     {item}
     //   </div>
     // ));
     return (
-      <div>
+      <div className="goat">
         {
           isLoading?(<Loading></Loading>):(
-          <div>
-            <Sorter></Sorter>
-            <Filter></Filter>
-            
-            <Container>
-              <Row>
-                {sneakers.map((e, i)=>(
-                  <Col xs={12} sm={6} md={4} lg={3}  key={`sneaker${i}`}>
-                    <Item details={e}></Item>
-                  </Col>
-                ))}
-              </Row>
-            </Container>
-            <button onClick={this.addMore.bind(this)}>Add Item</button>
-          </div>)}      
+          <Container className="sneakers">
+            <Row>
+              <Col xs={12} md={3} className="no-padding">
+                <div className="filter-btn" onClick={this.showFilters.bind(this)}>
+                  <span>{showFilters?'SHOW':'HIDE'} FILTERS</span><span className="filter-length">{filterLength}</span>
+                </div>
+                
+              </Col>
+              <Col className="sorter-out" xs={12} md={{ span: 3, offset: 6 }}>
+                <Sorter></Sorter>
+              </Col>
+            </Row>
+            <Row className="goat-main">
+              {!showFilters?(
+              <div className="sidebar">
+                <Filter></Filter>
+              </div>):null
+              }
+              <div className={`main${showFilters?' full':''}`}>
+                <Container className="main-container">
+                  {/* <Row>
+                    <h3 className="text-center title">SNEAKERS</h3>
+                  </Row> */}
+                  
+                  <Row className="sneakers-holder">
+                    {sneakers.map((e, i)=>(
+                      <Col xs={12} sm={6} md={4} xl={3} className="no-padding sneaker" key={`sneaker${i}`}>
+                        <Item details={e}></Item>
+                      </Col>
+                    ))}
+                    
+                  </Row>
+                  {(sneakers.length !==0 && sneakers.length%20===0)?(
+                    <Row>
+                      <div className="text-center add-more-btn" onClick={this.addMore.bind(this)}>SHOW MORE</div>
+                    </Row>
+                  ):null}
+                  
+                </Container>
+              </div>
+            </Row>
+          </Container>)}      
 
         {/* <CSSTransitionGroup
           transitionName="example"

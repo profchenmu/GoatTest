@@ -15,3 +15,227 @@
   opacity: 0.01;
   transition: opacity 300ms ease-in;
 }
+
+.goat {
+  .no-padding {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .small-padding {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  .title {
+    width: 100%;
+  }
+  .sorter-out {
+    padding: 0;
+  }
+  .filter-btn {
+    height: 3rem;
+    line-height: 3rem;
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    .filter-length {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      margin-left: .5rem;
+      background: black;
+      text-align: center;
+      color: #fff;
+    }
+  }
+  .add-more-btn {
+    margin: 2rem auto;
+    height: 3rem;
+    line-height: 3rem;
+    border: .5px solid black;
+    padding: 0 2rem;
+    cursor: pointer;
+    &:hover {
+      background: #25252D;
+      color: #fff;
+    }
+  }
+}
+.sneakers-holder {
+  .sneaker {
+    border-bottom: 1px solid rgba(129, 129, 129, 0.6);
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+  }
+  .sneaker:last-child{
+    border-bottom: 1px solid black;
+  }
+  .sneaker:first-child {
+    border-top: 1px solid black;
+  }
+}
+.main-container.container {
+  max-width: none;
+}
+.sidebar {
+  width: 100%;
+}
+.main {
+  width: 100%;
+}
+.goat-main {
+  justify-content: space-between;
+}
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  
+  .main-container.container {
+    max-width: none;
+  }
+  .sneakers.container {
+    max-width: 96%;
+  }
+  .sneakers-holder {
+    
+    .sneaker {
+      border-bottom: 1px solid rgba(129, 129, 129, 0.6);
+      border-right: 1px solid rgba(129, 129, 129, 0.6);
+      border-left: none;
+    }
+    .sneaker:nth-last-child(-n + 2) {
+      border-bottom: 1px solid black;
+    }
+    .sneaker:nth-child(2n + 1) {
+      border-left: 1px solid black;
+    }
+    .sneaker:nth-child(2n + 2) {
+      border-right: 1px solid black;
+    }
+    .sneaker:nth-child(1) {
+      border-top: 1px solid black;
+    }
+    .sneaker:nth-child(2) {
+      border-top: 1px solid black;
+    }
+    .sneaker:last-child {
+      border-right: 1px solid black;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .sidebar {
+    width: 30%;
+    max-width: 360px;
+    padding-right: 2%;
+  }
+  .main {
+    width: 70%;
+    &.full {
+      width: 100%;
+    }
+  }
+  .main-container.container {
+    max-width: none;
+  }
+  
+  .sneakers.container {
+    max-width: 96%;
+  }
+  .sneakers-holder {
+    .sneaker:nth-child(2n + 2) {
+      border-right: none;
+    }
+    .sneaker:nth-child(2n + 1) {
+      border-left: none;
+    }
+    .sneaker {
+      border-bottom: 1px solid rgba(129, 129, 129, 0.6);
+      border-right: 1px solid rgba(129, 129, 129, 0.6);
+    }
+    
+    .sneaker:nth-last-child(-n + 3) {
+      border-bottom: 1px solid black;
+    }
+    .sneaker:nth-child(3n + 1) {
+      border-left: 1px solid black;
+      border-right: 1px solid rgba(129, 129, 129, 0.6);
+    }
+    .sneaker:nth-child(3n + 2) {
+      border-right: 1px solid rgba(129, 129, 129, 0.6);
+    }
+    .sneaker:nth-child(3n + 3) {
+      border-right: 1px solid black;
+    }
+    .sneaker:nth-child(1) {
+      border-top: 1px solid black;
+    }
+    .sneaker:nth-child(2) {
+      border-top: 1px solid black;
+    }
+    .sneaker:nth-child(3) {
+      border-top: 1px solid black;
+    }
+    .sneaker:last-child {
+      border-right: 1px solid black;
+    }
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .main-container.container {
+    max-width: none;
+  }
+  .sneakers.container {
+    max-width: 96%;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .main-container.container {
+    max-width: none;
+  }
+  .sneakers.container {
+    max-width: 96%;
+  }
+  .sneakers-holder {
+    .sneaker {
+      border-bottom: 1px solid rgba(129, 129, 129, 0.6);
+      border-right: 1px solid rgba(129, 129, 129, 0.6);
+    }
+    .sneaker:nth-last-child(-n + 4) {
+      border-bottom: 1px solid black;
+    }
+    .sneaker:nth-child(3n + 1) {
+      border-left: none;
+    }
+    .sneaker:nth-child(3n + 3) {
+      border-right: 1px solid rgba(129, 129, 129, 0.6);
+    }
+    .sneaker:nth-child(4n + 1) {
+      border-left: 1px solid black;
+    }
+    .sneaker:nth-child(4n + 4) {
+      border-right: 1px solid black;
+    }
+    .sneaker:nth-child(1) {
+      border-top: 1px solid black;
+    }
+    .sneaker:nth-child(2) {
+      border-top: 1px solid black;
+    }
+    .sneaker:nth-child(3) {
+      border-top: 1px solid black;
+    }
+    .sneaker:nth-child(4) {
+      border-top: 1px solid black;
+    }
+    .sneaker:last-child {
+      border-right: 1px solid black;
+    }
+  }
+}

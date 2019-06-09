@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import { Container, Row, Col, Dropdown } from 'react-bootstrap';
 import * as homeActions from '../../../redux/actions/homeActions';
+import './sorter.scss';
 class Sorter extends React.Component {
   constructor(props) {
     super(props)
@@ -39,15 +40,15 @@ class Sorter extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="sorter">
         <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
-            {this.state.sortTitle}
+          <Dropdown.Toggle className="sort-holder" as="div" variant="success" id="dropdown-basic">
+            <b>SORT BY </b> <span>{this.state.sortTitle}</span>
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
             {this.sortBy.map((e, i)=>(
-              <Dropdown.Item key={`sort${i}`} onSelect={this.sort.bind(this)} eventKey={i}>{e.title}</Dropdown.Item>
+              <Dropdown.Item className="dropdown-item-a" key={`sort${i}`} onSelect={this.sort.bind(this)} eventKey={i}>{e.title}</Dropdown.Item>
             ))}
           </Dropdown.Menu>
         </Dropdown>

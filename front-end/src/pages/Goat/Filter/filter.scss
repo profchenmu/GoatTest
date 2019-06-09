@@ -1,0 +1,39 @@
+.filter {
+  padding-bottom: 2rem;
+  .filter-size, .filter-category, .filter-condition {
+    cursor: pointer;
+    width: 100%;
+    border: .5px solid #25252D;
+    margin-bottom: 4px;
+    text-align: center;
+    padding-top: 100%;
+    position: relative;
+    font-size: .8rem;
+    span {
+      display: block;
+      top: 33%;
+      left: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      line-height: 100%;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &.active {
+      background: #25252D;
+      color: #fff;
+    }
+  }
+  .filter-category {
+    padding-top: 33.3333333%;
+  }
+  .filter-condition {
+    padding-top: 16.6666667%;
+  }
+  .label-holder {
+    margin-top: 1.5rem;
+    margin-bottom: .8rem;
+  }
+}
