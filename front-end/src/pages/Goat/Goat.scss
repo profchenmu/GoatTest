@@ -94,6 +94,7 @@
   width: 100%;
 }
 .goat-main {
+  position: relative;
   justify-content: space-between;
 }
 // Small devices (landscape phones, 576px and up)
@@ -135,13 +136,26 @@
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
+  .goat-main.row {
+    flex-wrap: nowrap;
+  }
   .sidebar {
     width: 24%;
     max-width: 360px;
     padding-right: 3%;
+    // transition: opacity .2s ease-in, width .5s ease-in;
+    &.fade-out {
+      width: 0;
+      opacity: 0;
+      padding-right: 0;
+    }
   }
   .main {
     width: 76%;
+    // position: absolute;
+    background: #fff;
+    // right: 0;
+    transition: width .3s ease-out;
     &.full {
       width: 100%;
     }

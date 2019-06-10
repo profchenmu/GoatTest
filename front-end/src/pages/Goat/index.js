@@ -78,11 +78,11 @@ class Goat extends React.Component {
               </Col>
             </Row>
             <Row className="goat-main">
-              {showFilters?(
-              <div className="sidebar">
+              {/* {showFilters?( */}
+              <div className={`sidebar${showFilters?'':' fade-out'}`}>
                 <Filter></Filter>
-              </div>):null
-              }
+              </div>
+              {/* ):null} */}
               <div className={`main${!showFilters?' full':''}`}>
                 <Container className="main-container">
                   <Row className="sneakers-holder">
