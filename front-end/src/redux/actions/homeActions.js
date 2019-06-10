@@ -28,7 +28,6 @@ export const getSneakersFromSize = (size, category, condition, sort, page, loadi
   str += `_page=${pageNow}&_limit=20`;
   return (dispatch) => {
     if(loadingType){
-      console.log(loadingType, 'lllllll')
       dispatch({
         type: loadingType,
         payload: null

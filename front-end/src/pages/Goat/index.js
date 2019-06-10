@@ -128,7 +128,6 @@ class Goat extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   return {
     sneakers: state.homeReducer.sneakers,
     isLoading: state.homeReducer.isLoading,

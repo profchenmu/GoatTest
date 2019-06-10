@@ -9,7 +9,6 @@ export const getDetails = (id) => {
     })
     axios.get(`${COMMON.GET_ITEMS}/${id}`).then((res)=>{
       let data = res.data;
-      console.log(data)
       
       dispatch({
         type: `getDetails`,

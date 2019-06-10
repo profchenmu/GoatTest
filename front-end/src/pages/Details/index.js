@@ -38,7 +38,6 @@ class Details extends React.Component {
     } = this.props.details;
     const category = this.props.details.category || [];
     const keywords = this.props.details.keywords || [];
-    console.log(keywords)
 
     const story = story_html?story_html.replace(/(<[\w]+>)|(<\/[\w]+>)/g, ''):null
     return (
